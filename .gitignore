@@ -1,3 +1,5 @@
 .venv
 *.pdf
 *.env
+images
+__pycache__
