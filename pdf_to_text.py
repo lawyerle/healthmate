@@ -1,12 +1,18 @@
 import pdfplumber, os
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.schema import Document 
-# from langchain.document_loaders import PyPDFLoader
+from langchain.document_loaders import PyPDFLoader
 from langchain.prompts import ChatPromptTemplate
 from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
+
+# import pytesseract
+import easyocr
+from PIL import Image
+import io
+import numpy as np
 
 all_text = []
 # all_image = []
@@ -51,37 +57,87 @@ def make_chain():
          StrOutputParser()
     )
 
-def readPdf(pdfFile):
+def readPdf(folder_path):
     print("PDF 파일을 읽어들이는 중...") 
     raw_documents = []
-    with pdfplumber.open(pdfFile) as pdf:  
-        print(f'총 페이지 수 : {len(pdf.pages)}')
-        for page in pdf.pages:  
-            text = page.extract_text()  
-            if text:  # 텍스트가 있는 경우에만 추가  
-                    raw_documents.append(Document(page_content=text, metadata={"page": page.page_number}))
+    
+    # 지정된 폴더 내 모든 파일을 확인
+    for filename in os.listdir(folder_path):
+        # 파일이 PDF 형식인 경우에만 처리
+        if filename.endswith(".pdf"):
+            print(f'{filename} 처리 시작...')
+             # PDF 파일을 로드하여 raw_documents에 저장
+            raw_documents = PyPDFLoader(folder_path + '/' + filename).load()
 
-    # print(f'Documents Size : {len(raw_documents)}')
-    # for document in raw_documents:
-    #      print(document)
+            # 로드된 문서를 분할하여 documents에 저장
+            documents = text_splitter.split_documents(raw_documents)
 
-    # 로드된 문서를 분할하여 documents에 저장  
-    documents = text_splitter.split_documents(raw_documents)  
+            # 분할된 텍스트를 리스트에 추가
+            all_text.extend(documents)
+            
+            print(f'{filename} 처리 완료...')
+    #         with pdfplumber.open(filename) as pdf:  
+    #             print(f'{filename} 페이지 수 : {len(pdf.pages)}')
+    #             for page in pdf.pages:  
+    #                 text = page.extract_text()
+                    
+    #                 page_width = page.width  
+    #                 page_height = page.height 
+                    
+    #                 for img_index, img in enumerate(page.images):
+    #                     # 이미지의 bbox 가져오기  
+    #                     x0, top, x1, bottom = img['x0'], img['top'], img['x1'], img['bottom']  
+    #                     img_bbox = (x0, top, x1, bottom)  
+
+    #                     # 이미지의 bounding box가 페이지 내에 완전히 포함되었는지 확인  
+    #                     if (x0 < 0 or top < 0 or x1 > page_width or bottom > page_height):  
+    #                         print(f"Skipping image {img_index + 1} on page {page.page_number + 1} due to out-of-bounds coordinates.")  
+    #                         continue 
+    #                     # 이미지 추출  
+    #                     img_within_bbox = page.within_bbox(img_bbox).to_image()  
+    #                     image_obj = img_within_bbox.original  
+                        
+    #                     image_filename = f"{filename}_page_{page.page_number + 1}_img_{img_index + 1}.png"  
+    #                     image_output_path = os.path.join("./", image_filename)  
+    #                     image_obj.save(image_output_path)
+                        
+    #                     # 메모리에서 이미지 객체 생성  
+    #                     # image_obj = Image.open(io.BytesIO(img_bytes)) 
+    #                     image_text = reader.readtext(np.array(image_obj), detail=0)    
+    #                     # image_text =  pytesseract.image_to_string(image_obj)
+                        
+    #                     if image_text:
+    #                         print(image_text)
+    #                         text += " ".join(image_text)
+                    
+                    
+    #                 print(text.strip()) 
+    #                 if text.strip():  # 텍스트가 있는 경우에만 추가  
+    #                     raw_documents.append(Document(page_content=text, metadata={"page": page.page_number, "file": filename}))
+                    
+    #                     # print(f'Documents Size : {len(raw_documents)}')
+    #                     # for document in raw_documents:
+    #                     #      print(document)
+
+    # # 로드된 문서를 분할하여 documents에 저장  
+    # documents = text_splitter.split_documents(raw_documents)  
 
     # 분할된 텍스트를 리스트에 추가  
-    all_text.extend(documents) 
-    print(f"{pdfFile}을 읽어들였습니다. : {len(all_text)}")  
+    # all_text.extend(documents) 
+    print(f"총 읽어들인 텍스트 : {len(all_text)}")  
+
 
 def chat_with_user(user_message):
     ai_message = chain.invoke(user_message)
     return ai_message
 
+
 def main():
     init_api()
     
-    pdf_file_name = f"요양보호사+양성+표준교재(2023년+개정판).pdf"
+    folder_path = f"./"
 
-    readPdf(pdf_file_name)
+    readPdf(folder_path)
     make_chain()
 
     while True:
