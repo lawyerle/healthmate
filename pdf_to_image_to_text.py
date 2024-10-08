@@ -14,8 +14,9 @@ def init_api():
     os.environ["OPENAI_API_KEY"] = os.environ.get("API_KEY")
 
 
-def extract_text_from_converted_pdf(filename) -> list:
-    images = convert_from_path(filename)
+def extract_text_from_converted_pdf(folder_path, filename) -> list:
+    file_path = os.path.join(folder_path, filename)
+    images = convert_from_path(file_path)
     
     custom_config = r'--oem 3 --psm 6'
     raw_documents = []
@@ -23,9 +24,9 @@ def extract_text_from_converted_pdf(filename) -> list:
 
     for index, image in enumerate(images):
         # file_name = os.path.join(output_dir, f'page_{index+1}.png')
-        image = image.convert('L')
-        image = image.filter(ImageFilter.SHARPEN)
-        image = ImageEnhance.Contrast(image).enhance(2)
+        # image = image.convert('L')
+        # image = image.filter(ImageFilter.SHARPEN)
+        # image = ImageEnhance.Contrast(image).enhance(2)
         # image.save(file_name, 'PNG')
         
         text = pytesseract.image_to_string(image, config=custom_config, lang='kor+eng')
@@ -42,7 +43,7 @@ def extract_text_from_converted_pdf(filename) -> list:
 
         # print(f'{index}, {text}')
         
-        raw_documents.append(Document(page_content=text, metadata={"page": index, "file": filename}))
+        raw_documents.append(Document(page_content=text, metadata={"page": index+1, "file": filename}, id=index))
     
     return raw_documents
 
