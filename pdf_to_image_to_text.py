@@ -16,11 +16,11 @@ def init_api():
 
 def extract_text_from_converted_pdf(folder_path, filename) -> list:
     file_path = os.path.join(folder_path, filename)
+    
     images = convert_from_path(file_path)
     
     custom_config = r'--oem 3 --psm 6'
     raw_documents = []
-    all_text = []
 
     for index, image in enumerate(images):
         # file_name = os.path.join(output_dir, f'page_{index+1}.png')
@@ -43,7 +43,7 @@ def extract_text_from_converted_pdf(folder_path, filename) -> list:
 
         # print(f'{index}, {text}')
         
-        raw_documents.append(Document(page_content=text, metadata={"page": index+1, "file": filename}, id=index))
+        raw_documents.append(Document(page_content=text, metadata={"page": index+1, "source": filename}, id=index))
     
     return raw_documents
 
