@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from main import chat_with_user, make_chain, init_api, chain
+from main import chat_with_user, make_chain, init_api
 
 app = FastAPI()
 

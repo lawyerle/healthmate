@@ -1,7 +1,7 @@
 from pdf2image import convert_from_path
 import pytesseract
 import os
-from PIL import Image, ImageEnhance, ImageFilter
+# from PIL import Image, ImageEnhance, ImageFilter
 from langchain.schema import Document
 from openai import OpenAI
 
