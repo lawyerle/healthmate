@@ -6,7 +6,8 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_core.output_parsers import StrOutputParser
 # from langchain.text_splitter import CharacterTextSplitter
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.text_splitter import RecursiveCharacterTextSplitter, SentenceTransformersTokenTextSplitter
+from langchain_experimental.text_splitter import SemanticChunker
 from langchain_chroma import Chroma
 
 from pdf_to_image_to_text import extract_text_from_converted_pdf
@@ -30,7 +31,7 @@ prompt_template = ChatPromptTemplate.from_template(
     "일상적인 대화는 그냥 ChatGPT를 사용하세요. "
     "모르는 내용은 '모르겠습니다'라고 답변하세요. "
     "답변은 한국어로 작성하며, 문맥을 통해 전달된 내용을 우선적으로 사용하여 답변을 해주세요. "
-    "참고하는 문서는 '질환별상담자료집', '질환증상별질문답변', '질환과치료및예방'을 순으로 참고하여 답변해주세요."
+    "답변은 '질환증상별질문답변', '질환과치료및예방', '생활속 질병통계 100선', '자가건강관리', '요양보호사양성표준교재(2023년개정판)' 소스 순으로 참고하여 답변해주세요."
     "답변을 위해 참고한 문서가 있는 경우 메타정보의 소스의 페이지 번호를 포함해서 참고문헌으로 답변해 주세요. "
     "질문 내용에 '진료과', '증상', '예방'이란 키워드가 들어가면 진료과, 질병 정보, 위험 요인, 증상, 예방 방법을 포함한 상세한 답변을 제공하세요. "
     "질병과 관련된 질병인 경우 해당 질병에 대한 추천 검색어도 3개정도 제시해 주세요."
@@ -52,23 +53,24 @@ def make_chain():
     
     db = create_or_load_db()
     
-    retriever = db.as_retriever(search_kwargs={"k": 10})
+    retriever = db.as_retriever(search_kwargs={"k": 5})
 
     chain = (
          {"context": retriever, "question": RunnablePassthrough()} |
          prompt_template |
-         ChatOpenAI(model="gpt-4o-mini-2024-07-18") |
+         ChatOpenAI(temperature=0, model="gpt-4o-mini-2024-07-18") |
         #  ChatOpenAI(model="ft:gpt-4o-mini-2024-07-18:::AHOKExui") |
          StrOutputParser()
     )
     
     
 def create_or_load_db():
-    text_splitter = RecursiveCharacterTextSplitter(
-        # separator="\n",
-        chunk_size=1000,
-        chunk_overlap=50
-    )
+    # text_splitter = RecursiveCharacterTextSplitter(
+    #     # separator="\n",
+    #     chunk_size=1000,
+    #     chunk_overlap=50
+    # )
+    text_splitter = SemanticChunker(OpenAIEmbeddings(model="text-embedding-3-large"))
     
     # 기존 데이터베이스 로드
     db = Chroma(persist_directory=persist_directory, embedding_function=OpenAIEmbeddings(model="text-embedding-3-large"))
