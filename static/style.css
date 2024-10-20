@@ -41,14 +41,14 @@ ul {
 
 .frame-2018776034 {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
   background-color: var(--color-backgroundte);
   border-radius: var(--border-radius);
   /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); */
   padding: 40px;
   opacity: 0;
-  animation: fadeIn 3s ease-in-out forwards;
+  animation: fadeIn 1s ease-in-out forwards;
 }
 
 .health-mate-1,
@@ -58,7 +58,7 @@ ul {
 
 .slideshow-container {
     display: flex;
-    max-width: 1000px;
+    max-width: 800px;
     position: center;
     margin: auto;
 }
@@ -75,8 +75,9 @@ ul {
   }
 }
 
-@media (max-width: 480px) {
+/* @media (max-width: 480px) {
   .frame-2018776034 {
+    flex-direction: column;
     padding: 10px;
   }
 
@@ -84,19 +85,19 @@ ul {
   .health-mate-2 {
     max-width: 100px;
   }
-}
+} */
 
 @keyframes fadeIn {
   0% {
     opacity: 0;
     /* transform: scale(0.5); */
   }
-  50% {
+  /* 50% {
     opacity: 1;
   }
   75% {
     opacity: 0;
-  }
+  } */
   100% {
     opacity: 1;
   }

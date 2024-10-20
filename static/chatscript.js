@@ -1,8 +1,9 @@
 $(document).ready(function() {
   $('#send-button').click(function() {
     var message = $('#chat-input').val();
-    $('.loading-indicator').show();  
     if (message.trim() !== '') {
+      $('.loading-indicator').show();  
+      displayMessage(message, 'user');       
       sendMessage(message);
       $('#chat-input').val('');
     }
@@ -21,7 +22,6 @@ $(document).ready(function() {
     //   data: { message },
       success: function (response) {
         $('.loading-indicator').hide();  
-        displayMessage(message, 'user');
         displayMessage(response.message, 'bot');
       },
       error: function () {
