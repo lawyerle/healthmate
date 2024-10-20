@@ -8,7 +8,12 @@ function showSlides(n) {
     var i;
     var slides = document.getElementsByClassName("healthcare-medicine-database-2");
     var eclipses = document.getElementsByClassName("ellipse-1787");
-    if (n > slides.length) { window.location.href = "home" };
+    var navi = document.getElementsByClassName("onboarding-2");
+    
+    if (n > slides.length) {
+        navi[0].style.display = "none";
+        window.location.href = "home"
+    };
     if (n < 1) { slideIndex = slides.length };
     for (i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";
@@ -16,6 +21,7 @@ function showSlides(n) {
     }
     slides[slideIndex - 1].style.display = "block";
     eclipses[slideIndex - 1].style.backgroundColor = "#000";
+    navi[0].style.display = "flex";
 }
 
 function addButtonListener() {
