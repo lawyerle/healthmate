@@ -113,7 +113,7 @@ def create_or_load_db():
     
 def chat_with_user(user_message):
     ai_message = chain.invoke(user_message)
-    return ai_message
+    return ai_message.replace("~", "\~")
 
 
 def main():

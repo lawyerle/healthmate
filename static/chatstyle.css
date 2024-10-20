@@ -1,14 +1,50 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+    /* font-family: PretendardVariable-Medium; */
+    background-color: #e6ebf7;
     margin: 0;
     padding: 0;
+    font-size: 16px;
+}
+
+.app-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.app-title h1 {
+    margin-right: 10px;
+}
+
+.loading-indicator {
+    width: 24px;
+    height: 24px;
+    border: 4px solid #4CAF50;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    display: none;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+    /* max-width: 800px; */
+    /* margin: 0 auto; */
+    /* padding: 20px; */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .chat-container {
@@ -16,11 +52,16 @@ body {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
+    height: 80%;
+    width: 80%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
 }
 
 .chat-window {
-    height: 400px;
-    overflow-y: scroll;
+    flex-grow: 1;
+    overflow-y: auto;
     margin-bottom: 20px;
 }
 
@@ -28,6 +69,7 @@ body {
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
+    font-size: 1rem;
 }
 
 .chat-message.user {
@@ -46,17 +88,28 @@ body {
 
 #chat-input {
     flex-grow: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
+    padding: 20px;
+    border: 1.5px solid #ccc;
     border-radius: 5px;
+    font-size: 1rem;
 }
 
 #send-button {
-    background-color: #4CAF50;
+    background-color: #7594f1;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 20px 20px;
     border-radius: 5px;
     cursor: pointer;
     margin-left: 10px;
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+    .chat-window {
+        height: 100vh;
+    }
 }

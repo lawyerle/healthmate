@@ -1,0 +1,12 @@
+:root {
+  --font-family: Arial, sans-serif;
+  --font-size-small: 14px;
+  --font-size-medium: 16px;
+  --font-size-large: 20px;
+  --color-primary: #007bff;
+  --color-secondary: #6c757d;
+  --color-background: #01a4fc;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --border-radius: 5px;
+}

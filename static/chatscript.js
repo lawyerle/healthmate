@@ -1,6 +1,7 @@
 $(document).ready(function() {
   $('#send-button').click(function() {
     var message = $('#chat-input').val();
+    $('.loading-indicator').show();  
     if (message.trim() !== '') {
       sendMessage(message);
       $('#chat-input').val('');
@@ -16,13 +17,15 @@ $(document).ready(function() {
   function sendMessage(message) {
     $.ajax({
       type: 'GET',
-      url: 'http://127.0.0.1:8000/chat/' + message,
+      url: 'chat/' + message,
     //   data: { message },
-      success: function(response) {
+      success: function (response) {
+        $('.loading-indicator').hide();  
         displayMessage(message, 'user');
         displayMessage(response.message, 'bot');
       },
-      error: function() {
+      error: function () {
+        $('.loading-indicator').hide();  
         displayMessage('Error sending message.', 'bot');
       }
     });

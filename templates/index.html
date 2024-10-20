@@ -1,24 +1,30 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <title>Health Mate</title>
-    <link rel="stylesheet" href="/static/style.css" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./static/vars.css" />
+    <link rel="stylesheet" href="./static/style.css" />
+    <title>Main</title>
   </head>
   <body>
-    <div class="slideshow-container">
-      <!-- 슬라이드 -->
-      <div class="mySlides">
-        <img src="/static/imgs/lion.avif?text=Slide+1" style="width: 100%" />
+    <div class="splash">
+      <div class="frame-2018776034">
+        <img class="health-mate-1" src="/static/imgs/health-mate-10.svg" />
+        <img class="health-mate-2" src="/static/imgs/health-mate-20.svg" />
       </div>
-      <div class="mySlides">
-        <img src="/static/imgs/tiger.avif?text=Slide+2" style="width: 100%" />
-      </div>
-      <div class="mySlides">
-        <img src="/static/imgs/whale.webp?text=Slide+3" style="width: 100%" />
-      </div>
-      <!-- 버튼 -->
-      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-      <a class="next" onclick="plusSlides(1)">&#10095;</a>
-      <script src="/static/script.js"></script>
     </div>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const logoContainer = document.querySelector(".frame-2018776034");
+
+        // Wait for the animations to finish
+        setTimeout(() => {
+          // Redirect to another page or perform any other desired action
+          window.location.href = "onboarding";
+        }, 5000);
+      });
+    </script>
   </body>
 </html>

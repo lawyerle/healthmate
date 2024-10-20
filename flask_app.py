@@ -19,6 +19,14 @@ def index():
 def chatui():
     return render_template('chat.html')
 
+@app.route('/onboarding', methods=['GET'])
+def onboarding():
+    return render_template('onboarding.html')
+
+@app.route('/home', methods=['GET'])
+def home():
+    return render_template('home.html')
+
 @app.route('/chat/<question>', methods=['GET'])
 def chat_massage(question):
    message = chat_with_user(question)
