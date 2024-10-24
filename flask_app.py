@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 from main import chat_with_user, make_chain, init_api
 
 app = Flask(__name__)
@@ -17,7 +17,14 @@ def index():
 
 @app.route('/chatui', methods=['GET'])
 def chatui():
-    return render_template('chat.html')
+    value = ''
+    if 'search' in request.args:
+        value = request.args.get('search', type=str)
+        print(value)
+    if value:
+        return render_template('chat.html', query_param=value)
+    else:
+        return render_template('chat.html')
 
 @app.route('/2', methods=['GET'])
 def onboarding1():
