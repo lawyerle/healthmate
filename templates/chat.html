@@ -9,11 +9,12 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="/static/chatscript.js"></script>
+    <link rel="stylesheet" href="../static/style.css" />
   </head>
   <body>
     <div class="container">
       <div class="app-title">
-        <h1>Health Mate</h1>
+        <img src="../static/imgs/logo.svg" height="40">
         <div class="loading-indicator">
           <img class="vector-1" src="/static/imgs/vector0.svg" />
         </div>
@@ -21,16 +22,13 @@
       <div class="chat-container">
         <div class="chat-window">
           <div class="chat-messages">
-            <h3>"저는 건강도우미 챗봇입니다. 어떤 것을 알고 싶으신가요?"</h3>
+            <img src="../static/imgs/chat_bg.svg" alt="example">
           </div>
         </div>
-        <div class="chat-input">
-          <input
-            type="text"
-            id="chat-input"
-            placeholder="궁금한 점을 입력하세요..."
-          />
-          <button id="send-button">Send</button>
+        <div class="input-container">
+            <img src="../static/imgs/search.svg" alt="Search Icon">
+            <input type="text" id="chat-input" placeholder="한 단어만 입력해도 편하게 알려드려요.">
+            <img id="send-button" src="../static/imgs/upload.svg" alt="Send Button" />
         </div>
       </div>
     </div>

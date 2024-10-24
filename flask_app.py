@@ -19,9 +19,18 @@ def index():
 def chatui():
     return render_template('chat.html')
 
-@app.route('/onboarding', methods=['GET'])
-def onboarding():
-    return render_template('onboarding.html')
+@app.route('/2', methods=['GET'])
+def onboarding1():
+    return render_template('2.html')
+
+
+@app.route('/3', methods=['GET'])
+def onboarding2():
+    return render_template('3.html')
+
+@app.route('/4', methods=['GET'])
+def onboarding3():
+    return render_template('4.html')
 
 @app.route('/home', methods=['GET'])
 def home():

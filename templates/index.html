@@ -1,28 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./static/vars.css" />
-    <link rel="stylesheet" href="./static/style.css" />
-    <title>Main</title>
-  </head>
-  <body>
-    <div class="splash">
-      <div class="frame-2018776034">
-        <img class="health-mate-1" src="/static/imgs/health-mate-10.svg" />
-        <img class="health-mate-2" src="/static/imgs/health-mate-20.svg" />
-      </div>
-    </div>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel="stylesheet" href="../static/style.css" />
+    <title>HealthMate</title>
     <script>
-      window.addEventListener("DOMContentLoaded", () => {
-        // Wait for the animations to finish
-        setTimeout(() => {
-          // Redirect to another page or perform any other desired action
-          window.location.href = "onboarding";
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.opacity = 1;
+        });
+
+        setTimeout(function() {
+            document.body.style.opacity = 0;
+            setTimeout(function() {
+                window.location='2';
+            }, 300); // 페이드 아웃 시간과 일치
         }, 3000);
-      });
     </script>
-  </body>
+</head>
+<body>
+    <img src='../static/imgs/splash.svg' alt='Logo' class="responsive-svg">
+</body>
 </html>
