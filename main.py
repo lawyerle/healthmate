@@ -51,6 +51,8 @@ prompt_template = ChatPromptTemplate.from_template(
 def make_chain(): 
     global chain
     
+    print("make_chain() 함수가 호출되었습니다.")
+    
     db = create_or_load_db()
     
     retriever = db.as_retriever(search_kwargs={"k": 5})
@@ -63,6 +65,10 @@ def make_chain():
          StrOutputParser()
     )
     
+    if chain is None:
+        print("make_chain()에서 chain 객체 생성 실패")
+    
+    return chain
     
 def create_or_load_db():
     # text_splitter = RecursiveCharacterTextSplitter(
@@ -110,11 +116,9 @@ def create_or_load_db():
             
     return db
     
-    
 def chat_with_user(user_message):
     ai_message = chain.invoke(user_message)
     return ai_message.replace("~", "\~")
-
 
 def main():
     init_api()
@@ -130,7 +134,5 @@ def main():
 
          print(f" AI : {ai_message}")
 
-
 if __name__ == "__main__":
     main()
-    

@@ -4,87 +4,84 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../static/style.css" />
-    <title>Onboarding2</title>
-    <script>
-      setTimeout(function() {
-          window.location='{{ url_for('chatui') }}';
-      }, 7000);
-    </script>
+    <title>HealthMate Main</title>
   </head>
   <body>
     <svg
       class="responsive-svg"
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 375 812"
+      viewBox="0 0 393 852"
     >
-      <style>
-        .blinking {
-          animation: blink 1s step-start infinite;
-        }
-
-        @keyframes blink {
-          50% {
-            opacity: 0;
-          }
-        }
-      </style>
-
-      <!-- SVG 이미지 -->
-      <image href="../static/imgs/home.svg" width="375" height="812" />
-
-      <!-- 링크 추가 -->
-      <a xlink:href="{{ url_for('chatui') }}">
-        <rect
-          x="20.75"
-          y="196.75"
-          width="333.5"
-          height="47.5"
-          rx="23.25"
-          fill="transparent"
-        />
-        <path
-          d="M52.7133 222.04C53.9129 220.863 54.6548 219.238 54.6548 217.443C54.6548 213.854 51.687 210.943 48.0261 210.943C44.3651 210.943 41.3973 213.854 41.3973 217.443C41.3973 221.033 44.3651 223.943 48.0261 223.943C49.8565 223.943 51.5137 223.216 52.7133 222.04ZM52.7133 222.04L57.6027 227.057"
-          stroke="white"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          fill="none"
-          class="blinking"
-        />
-      </a>
+      <image href="../static/imgs/home.svg" width="393" height="852" />
+      <rect
+        x="30.75"
+        y="426.75"
+        width="336.5"
+        height="47.5"
+        rx="23.25"
+        fill="transparent"
+        id="question1"
+        class="question-button"
+        data-question="가정에서 혈압 측정은 하루 몇 번, 어떤 방식으로 해야 하나요?"
+      />
+      <rect
+        x="30.5"
+        y="499.5"
+        width="337"
+        height="48"
+        rx="23.5"
+        fill="transparent"
+        id="question2"
+        class="question-button"
+        data-question="식후 2시간 혈당은 몇까지가 정상범위인가요?"
+      />
+      <rect
+        x="30.5"
+        y="572.5"
+        width="337"
+        height="48"
+        rx="23.5"
+        fill="transparent"
+        id="question3"
+        class="question-button"
+        data-question="콜레스테롤 수치를 낮추기 위해 반드시 피해야 할 음식은 무엇인가요?"
+      />
+      <rect
+        x="30.5"
+        y="645.5"
+        width="337"
+        height="48"
+        rx="23.5"
+        fill="transparent"
+        id="question4"
+        class="question-button"
+        data-question="천식 발작이 올 때 응급 대처법을 단계별로 알려주세요"
+      />
+      <rect
+        x="30.5"
+        y="718.5"
+        width="337"
+        height="48"
+        rx="23.5"
+        fill="transparent"
+        id="question5"
+        class="question-button"
+        data-question="산소포화도는 몇 이하일 때 병원을 방문해야 하나요?"
+      />
     </svg>
-    <div class="question-buttons" id="questionButtons">
-      <button class="question-button">
-        가정에서 혈압 측정은 하루 몇 번, 어떤 방식으로 해야 하나요?
-      </button>
-      <button class="question-button">
-        식후 2시간 혈당은 몇까지가 정상범위인가요?
-      </button>
-      <button class="question-button">
-        콜레스테롤 수치를 낮추기 위해 반드시 피해야 할 음식은 무엇인가요?
-      </button>
-      <button class="question-button">
-        천식 발작이 올 때 응급 대처법을 단계별로 알려주세요
-      </button>
-      <button class="question-button">
-        산소포화도는 몇 이하일 때 병원을 방문해야 하나요?
-      </button>
-    </div>
+
     <script>
       document.querySelectorAll(".question-button").forEach((button) => {
         button.addEventListener("click", function () {
-          const question = this.textContent;
+          const question = this.getAttribute("data-question");
           navigateToPageWithParameter(question);
         });
       });
 
       function navigateToPageWithParameter(parameterValue) {
-        // 현재 URL에서 파라미터 부분 제거
         var nextUrl = "chatui";
-        // 새로운 URL 생성
         var newUrl =
           nextUrl + "?" + "search" + "=" + encodeURIComponent(parameterValue);
-        // 페이지 이동
         window.location.href = newUrl;
       }
     </script>

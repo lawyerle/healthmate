@@ -56,12 +56,12 @@ body, html {
   object-fit: contain; /* 비율을 유지하면서 크기 조정 */
 }
 
-/* .responsive-svg {
+ /* .responsive-svg {
     width: 100%;
     height: auto;
     display: block; /* 이미지 아래에 다른 요소가 오도록 설정 */
-    margin-bottom: 20px; /* 이미지 아래에 여백 추가 */
-  } */
+   /* margin-bottom: 20px; /* 이미지 아래에 여백 추가 */
+ /* }  */
 
 header {
     background-color: #ffffff;
@@ -148,9 +148,30 @@ padding: 5px; /* 컨테이너에 패딩 추가 */
     height: 100%; /* 높이를 100%로 설정 */
     margin: 0 auto;
 }
+
 body {
     display: flex;
     flex-direction: column;
     height: 100vh; /* 전체 화면 높이 */
     margin: 0; /* 기본 여백 제거 */
   }
+
+.hover-rect {
+    transition: fill 0.3s ease;
+}
+a:hover .hover-rect {
+    fill: white; /* 마우스 호버 시 색상 변경 */
+}
+.button-bg {
+    transition: fill 0.3s ease;
+}
+a:hover .button-bg {
+    fill: #01A4FC; /* 마우스 오버 시 색상 변경 */
+}
+
+.clickable {
+    cursor: pointer;
+}
+.question-button {
+    cursor: pointer;
+}

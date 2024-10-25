@@ -16,3 +16,8 @@ function showSlides(n) {
     }
     slides[slideIndex-1].style.display = "block";
 }
+
+// home에서 chat으로 이동
+function navigateToChatUI(question) {
+    window.location.href = '/chatui?question=' + encodeURIComponent(question);
+}
